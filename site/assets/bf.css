@@ -260,3 +260,12 @@ s{color:var(--dim);text-decoration-thickness:2px}
 .next b{display:block;font-family:Manrope,sans-serif}
 .next span{color:var(--muted);font-size:14.5px}
 .ty .btn{margin-top:32px}
+
+/* hosting choice at checkout (Ed 09/11: keep both $25 and $50) */
+.host{margin:20px 0 0;padding:0;border:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.host legend{grid-column:1/-1;margin-bottom:8px;font:600 13.5px Inter,sans-serif}
+.host label{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border:1px solid var(--line2);border-radius:10px;cursor:pointer;font-size:13.5px;color:var(--muted);line-height:1.35}
+.host label:has(input:checked){border-color:var(--bright);background:var(--bg3)}
+.host input{margin-top:2px;accent-color:var(--blue);flex:none}
+.host b{display:block;color:var(--text);font:700 15px Manrope,Inter,sans-serif}
+@media (max-width:640px){.host{grid-template-columns:1fr}}

@@ -1,20 +1,25 @@
-/* DMI Black Friday 2026 — config + forms. Fill the CONFIG values when GHL / Airwallex / Jesse send them. */
+/* DMI Black Friday 2026: config + forms. GHL lead API, GHL payment links ($99 deposit, Stripe) and Jesse's calendar. */
 window.BF = {
   CONFIG: {
     // Our own Worker endpoint; it holds the GHL token and upserts the contact (src/worker.js).
     // Empty = demo mode, nothing is sent.
     ghlWebhook: '/api/lead',
-    // Airwallex $99 deposit links (Ed). One link for both is fine: set both to the same URL.
-    // Set the Airwallex success redirect to <site>/thank-you/?pkg=standard|premium
-    airwallex: { standard: '', premium: '' },
-    // Jesse's booking calendar (GHL calendar / Calendly)
-    jesseCalendar: '',
+    // GHL Payment Links ($99 "Black Friday 2026 Website Deposit" product, paid into DMI's Stripe).
+    // Each link redirects back to /thank-you/?pkg=...&paid=1 after payment (set inside GHL > Payments > Payment Links).
+    // If the site moves to a DMI subdomain, update that redirect URL in both links.
+    payment: {
+      standard: 'https://link.fastpaydirect.com/payment-link/6af14a3303c375ed645fe306',
+      premium: 'https://link.fastpaydirect.com/payment-link/6af14af7d4cfb789aef226ae',
+    },
+    // Jesse's booking calendar (Acuity)
+    jesseCalendar: 'https://bookacallwithdetailersmovement.as.me/schedule/07fa36d7/appointment/29902457/calendar/6440422',
   },
   PACKAGES: {
     standard: { name: 'Standard Website', price: 500, normal: 1000 },
     premium: { name: 'Premium Website', price: 990, normal: 2000 },
   },
   DEPOSIT: 99,
+  HOSTING: { basic: { label: 'Hosting', price: 25 }, secure: { label: 'Hosting, security & backups', price: 50 } },
 };
 
 (function () {

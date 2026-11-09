@@ -24,13 +24,13 @@
 
 ## Việc chờ người khác
 - [ ] Steve → anh Bằng: gắn subdomain detailersmovement.com cho worker.
-- [ ] Anh Đạt: inbound webhook GHL (lead + checkout), workflow email sau cọc.
-- [ ] Ed: link Airwallex $99 (1 link chung hay 2 theo gói), điều khoản hoàn/huỷ cọc.
-- [ ] Jesse: link lịch book call.
+- [ ] **Ed: Stripe live của DMI không nhận thanh toán** (link GHL Live báo "No valid payment method available"; link Test mode thì hiện ô thẻ). Ed kiểm Stripe dashboard / nối lại Stripe trong GHL. Điều khoản hoàn/huỷ cọc.
+- [ ] Fender: dựng workflow GHL "BF26 Deposit paid" (trigger Payment Received, sản phẩm Black Friday 2026 Website Deposit → tag `bf26-deposit-paid` → email link lịch Jesse), bản Draft cần duyệt rồi Publish. UI workflow nằm trong iframe, Claude không click được.
+- [ ] Fender: gửi ảnh chai ceramic DMI 50ml → thay `site/assets/bf-bottle-temp.webp` (đang là Apeax Paint 5 Years 20ml, tạm).
 
 ## Cấu trúc
 - `site/` = thứ lên Cloudflare (`wrangler.jsonc`, worker `dmi-blackfriday`, live tại https://dmi-blackfriday.fender-aa2.workers.dev; push `main` = tự deploy qua Workers Builds). `index.html` (landing), `checkout/`, `thank-you/`, `assets/bf.css` + `bf.js`.
-- **Nối thật chỉ cần điền `CONFIG` đầu `site/assets/bf.js`:** `ghlWebhook` (Đạt), `airwallex.standard/premium` (Ed; success redirect về `/thank-you/?pkg=...`), `jesseCalendar` (Jesse). Để trống = chế độ demo (không gửi gì, nút cọc đi thẳng trang cảm ơn, có hộp vàng báo Demo).
+- **`CONFIG` đầu `site/assets/bf.js`:** `ghlWebhook` = `/api/lead`; `payment.standard/premium` = GHL Payment Links (`link.fastpaydirect.com/payment-link/6af14a3303c375ed645fe306` / `6af14af7d4cfb789aef226ae`, product "Black Friday 2026 Website Deposit" $99 id `6af149fb1549b73ef5e8d4e1`, Live mode, redirect về `/thank-you/?pkg=...&paid=1`; **đổi domain thì sửa redirect trong 2 link**); `jesseCalendar` = Acuity của Jesse (trang cảm ơn điền sẵn firstName/lastName/email). Checkout nối `?email=` vào link thanh toán (chỉ email điền sẵn được). Để trống = demo.
 - Payload gửi GHL: `type` = `lead` (form hero/quote) hoặc `deposit_started` (checkout), kèm `package`, `package_price`, `deposit`, `name/email/business/phone`, `utm_*`, `campaign`. Lead form xong thì chuyển sang checkout, thông tin điền sẵn (sessionStorage).
 - Tài sản chép từ dự án `Downloads/DMI- Service Website-Design` bằng `4-tools/prep_assets.py`. Standard: First Choice, Daniels, Diwal, ATD, Slim's (crop 16:10 đầu trang). Premium: Design 1–5 (link steve-7e8 themes). Review: 3 câu thật (Ryan Lindsey, Michael Heintz, Joey Love). Nền hero = ảnh studio của Premium Design 4.
 - Preview: launch `dmi-blackfriday` cổng 8770. QA: `node 4-tools/shots.js` (ảnh vào `4-tools/qa/`), `node 4-tools/flow-test.js` (thử luồng form → checkout → cảm ơn).
@@ -46,11 +46,12 @@
 - Giữ nguyên CSS/JS gốc của V3: header, hero tường web, Standard, Premium (configurator), Reviews, footer. Bỏ: Before/After, Custom, Simulator, CRM. Cuối trang thay CTA/FAQ cũ bằng `parts/end.html` (form quote + FAQ không Custom, thêm câu cọc $99) + dải "Limited time only".
 - Hero: `parts/hero-copy.html` (tiêu đề BF + 50% OFF + form 3 trường), `.bf-shade` làm tối nền sau chữ. Đã vá script tường web để bấm vào form không mở web khách.
 - Nút "I want one like this" (Standard) và "Choose this design" (Premium) → `checkout/?pkg=...&design=...` (thay vì Messenger), checkout hiện dòng Design, gửi kèm sang GHL.
-- **Giá các block giữ đúng V3** ($500 / $990, Premium "Normally $2,897", hosting $25/$50, không ceramic). Chỉ hero và dải cuối ghi "50% OFF". Chờ Ed chốt giá gạch theo mock hay V3.
+- **Giá theo Ed (09/11):** Standard ~~$1,000~~ $500 (≤20 trang + 5 quyền lợi mock), Premium ~~$2,000~~ $990 (≤30 trang, Everything in Standard, Local SEO 3 tháng valued $897, tặng ceramic 5 năm 50ml), hosting giữ $25 và $50. Builder (`build_from_v3.py` bước 5b) vá các dòng này trên HTML V3. Checkout có chọn hosting, gửi kèm sang GHL (ghi chú contact).
 - Bản landing cũ dựng theo mock: `4-tools/old/index-mock-v1.html`.
-- QA: `node 4-tools/shots-v3.js` (ảnh từng block), `node 4-tools/flow-test-v3.js` (4 luồng).
+- QA: `node 4-tools/shots-v3.js <url>` (ảnh từng block), `node 4-tools/flow-test-v3.js <url>` (6 bước, chặn `/api/lead` và trang Stripe nên không tạo contact rác).
 
 ## Nhật ký
+- **09/11/2026 (khuya 2):** Mail Ed (qua Steve): 50% OFF model, giữ 2 hosting, tặng chai ceramic DMI, 20/30 trang, cọc qua GHL, sau cọc → lịch Jesse. Đã: sửa giá/quyền lợi toàn trang + checkout, chai Apeax tạm, hero điện thoại gọn 1 màn (bỏ kicker + proof, khối 50% OFF + giá gạch), tạo product + 2 Payment Link trong GHL, nối link lịch Jesse. Stripe live của DMI (đã nối GHL, từng thu $99 qua funnel marketingtoolkits 11/2024) hiện không thanh toán được → chờ Ed.
 - **09/11/2026 (khuya):** Location ID `yqROQIaNeeK0xIpi4n67` đã điền, token đọc/ghi contacts OK (không có scope locations). Git: repo riêng tư https://github.com/fender-del/dmi-blackfriday-2026 (`main`). Deploy live https://dmi-blackfriday.fender-aa2.workers.dev, secret `GHL_TOKEN` đã đặt. Lead thử: contact `test-bf26@detailersmovement.com` (TEST - please delete) cần xoá trong GHL. Deploy tự động từ git (Workers Builds) cần Fender bấm nối GitHub trong dashboard Cloudflare.
 - **09/11/2026 (đêm):** Fender có tài khoản GHL `https://app.detailersmovement.com/` (white-label). Đã hướng dẫn: lấy Location ID từ URL `/v2/location/<ID>/`, token phải tạo trong đúng sub-account (scope contacts); phương án cọc trên GHL (Payment Link / order form funnel + workflow "Payment Received") cần cổng thanh toán GHL hỗ trợ (Stripe…, Airwallex không có sẵn); subdomain: worker phải nằm cùng tài khoản Cloudflare với zone detailersmovement.com → bàn giao cho anh Bằng deploy vào tài khoản DMI rồi Add Custom Domain.
 - **09/11/2026 (tối):** Fender yêu cầu lấy đúng block từ source V3 (hero + form, Standard, Premium, testimonial; bỏ Custom) → dựng lại landing bằng builder ở trên. Máy tính 6,8 màn, điện thoại 7,0. QA không lỗi JS, 4 luồng chạy đúng.

@@ -49,7 +49,14 @@
   const k=new URLSearchParams(location.search).get('pkg')||sessionStorage.getItem('bf_pkg');
   if(PACKAGES[k]) document.getElementById('pkgName').textContent=PACKAGES[k].name;
   const b=document.getElementById('bookBtn');
-  if(CONFIG.jesseCalendar) b.href=CONFIG.jesseCalendar;
+  if(CONFIG.jesseCalendar){
+    // prefill Jesse's Acuity calendar with what they typed on our forms
+    const u=new URL(CONFIG.jesseCalendar),l=window.BF.lead()||{},n=(l.name||'').trim().split(/\s+/);
+    if(n[0]) u.searchParams.set('firstName',n[0]);
+    if(n.length>1) u.searchParams.set('lastName',n.slice(1).join(' '));
+    if(l.email) u.searchParams.set('email',l.email);
+    b.href=u.toString();
+  }
   else { b.removeAttribute('target'); document.getElementById('demoNote').hidden=false; }
 })();
 </script>

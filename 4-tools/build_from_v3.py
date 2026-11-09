@@ -59,6 +59,31 @@ html = must_replace(html, "if(e.target.closest('a,button')&&!e.target.closest('.
 end = re.search(r"<!-- SECTION:faq-cta -->.*?<!-- /SECTION:faq-cta -->", html, re.S)
 html = html[: end.start()] + (PARTS / "end.html").read_text(encoding="utf-8") + html[end.end():]
 
+# 5b. Black Friday offer (Ed, 09/11): 50% off model, Standard normally $1,000 -> $500 (up to 20 pages),
+#     Premium normally $2,000 -> $990 (up to 30 pages, 3 months local SEO valued $897, free 5-year ceramic 50ml),
+#     hosting keeps both $25 and $50. Bottle photo is a temporary Apeax one until the DMI bottle arrives.
+html = must_replace(html, 'Standard. <span class="tpx">$500</span><small>+ hosting from $25/month</small>',
+                    'Standard. <s class="bf-was">$1,000</s> <span class="tpx">$500</span><small><em class="bf-pct">50% OFF</em> + hosting from $25/month</small>')
+html = must_replace(html, 'Premium. <span class="tpx">$990</span><small>+ hosting from $25/month</small>',
+                    'Premium. <s class="bf-was">$2,000</s> <span class="tpx">$990</span><small><em class="bf-pct">50% OFF</em> + hosting from $25/month</small>')
+m = re.search(r'<li>(<svg[^>]*><path[^>]*/></svg>)Standard design &amp; build</li>', html)
+assert m
+chk = m.group(1)
+std_inc = ["Up to 20 pages", "Mobile &amp; tablet optimised", "Lead forms &amp; contact integration",
+           "SEO-friendly setup", "Google Analytics &amp; Search Console"]
+html = html[: m.start()] + "".join(f"<li>{chk}{t}</li>" for t in std_inc) + html[m.end():]
+html = must_replace(html, '<p class="pr"><b>$500</b>+ hosting from $25/month</p>',
+                    '<p class="pr"><s class="bf-was">$1,000</s> <b>$500</b>+ hosting from $25/month</p>')
+html = must_replace(html, '<li>Website design &amp; build<b>$2,000</b></li>\n     <li>Local SEO, 3 months<b>$897</b></li>',
+                    '<li>Premium design &amp; build, up to 30 pages<b>$2,000</b></li>\n'
+                    '     <li>Everything in Standard<b>Included</b></li>\n'
+                    '     <li>Local SEO, 3 months, valued at $897<b>Included</b></li>\n'
+                    '     <li class="bf-gift"><img src="assets/bf-bottle-temp.webp" alt="" width="209" height="562" loading="lazy">'
+                    '<span>5-year ceramic coating<small>50ml bottle</small></span><b>Free</b></li>')
+html = must_replace(html, 'Normally<b data-v="2897">$2,897</b>', 'Normally<b data-v="2000">$2,000</b>')
+html = must_replace(html, '<p class="p3-now">With Premium<strong>$990</strong></p>', '<p class="p3-now">Black Friday, 50% off<strong>$990</strong></p>')
+html = must_replace(html, '<small>$2,897 value</small>', '<small>Normally $2,000</small>')
+
 # 6. BF scripts: lead form + route "I want one like this" / "Choose this design" to the $99 checkout
 html = must_replace(html, "</body>", '<script src="assets/bf.js"></script>\n<script src="assets/bf-v3.js"></script>\n</body>')
 

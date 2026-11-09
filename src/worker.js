@@ -55,6 +55,7 @@ async function handleLead(req, env) {
       `Black Friday 2026: ${d.type === 'deposit_started' ? 'started $99 deposit checkout' : 'lead form (' + (d.form || 'landing') + ')'}`,
       d.package && `Package: ${d.package} ($${d.package_price})`,
       d.design && `Design picked: ${d.design}`,
+      d.hosting && `Hosting: ${d.hosting} (12-month commitment)`,
       d.business && `Business: ${d.business}`,
       ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].filter(k => d[k]).map(k => `${k}: ${d[k]}`).join(' · '),
       `Page: ${d.page || ''} · ${d.submitted_at || new Date().toISOString()}`,
