@@ -29,14 +29,14 @@
 - [ ] Jesse: link lịch book call.
 
 ## Cấu trúc
-- `site/` = thứ lên Cloudflare (`wrangler.jsonc`, worker `dmi-blackfriday`, chưa deploy). `index.html` (landing), `checkout/`, `thank-you/`, `assets/bf.css` + `bf.js`.
+- `site/` = thứ lên Cloudflare (`wrangler.jsonc`, worker `dmi-blackfriday`, live tại https://dmi-blackfriday.fender-aa2.workers.dev; push `main` = tự deploy qua Workers Builds). `index.html` (landing), `checkout/`, `thank-you/`, `assets/bf.css` + `bf.js`.
 - **Nối thật chỉ cần điền `CONFIG` đầu `site/assets/bf.js`:** `ghlWebhook` (Đạt), `airwallex.standard/premium` (Ed; success redirect về `/thank-you/?pkg=...`), `jesseCalendar` (Jesse). Để trống = chế độ demo (không gửi gì, nút cọc đi thẳng trang cảm ơn, có hộp vàng báo Demo).
 - Payload gửi GHL: `type` = `lead` (form hero/quote) hoặc `deposit_started` (checkout), kèm `package`, `package_price`, `deposit`, `name/email/business/phone`, `utm_*`, `campaign`. Lead form xong thì chuyển sang checkout, thông tin điền sẵn (sessionStorage).
 - Tài sản chép từ dự án `Downloads/DMI- Service Website-Design` bằng `4-tools/prep_assets.py`. Standard: First Choice, Daniels, Diwal, ATD, Slim's (crop 16:10 đầu trang). Premium: Design 1–5 (link steve-7e8 themes). Review: 3 câu thật (Ryan Lindsey, Michael Heintz, Joey Love). Nền hero = ảnh studio của Premium Design 4.
 - Preview: launch `dmi-blackfriday` cổng 8770. QA: `node 4-tools/shots.js` (ảnh vào `4-tools/qa/`), `node 4-tools/flow-test.js` (thử luồng form → checkout → cảm ơn).
 
 ## GHL
-- Fender gửi **Private Integration Token** (09/11), lưu ở `.dev.vars` (git-ignore, không bao giờ đưa vào `site/`). Token hợp lệ nhưng mọi API cần **Location ID** của sub-account DMI → chưa có, đang chờ.
+- Fender gửi **Private Integration Token** (09/11), lưu ở `.dev.vars` (git-ignore, không bao giờ đưa vào `site/`). Location ID `yqROQIaNeeK0xIpi4n67` (đã điền, đã chạy thật).
 - Đường đi: form → `POST /api/lead` (Worker `src/worker.js`) → GHL `contacts/upsert` (tag `black-friday-2026`, `bf26-lead` / `bf26-checkout-started`, `bf26-premium|standard`, `bf26-src-<utm_source>`) + ghi chú (gói, giá, utm). Workflow email sau cọc / book call Jesse dựng trong GHL dựa theo tag.
 - Khi có Location ID: điền `vars.GHL_LOCATION_ID` trong `wrangler.jsonc`; lúc deploy chạy `npx wrangler secret put GHL_TOKEN`.
 - Preview giờ chạy bằng `wrangler dev` cổng 8770 (để `/api/lead` hoạt động).
