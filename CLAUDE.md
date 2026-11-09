@@ -24,7 +24,7 @@
 
 ## Việc chờ người khác
 - [ ] Steve → anh Bằng: gắn subdomain detailersmovement.com cho worker.
-- [ ] **Lỗi cọc Live (đã tìm ra 09/11):** Stripe của DMI (`acct_1JSYy9JHa6Xz3bE9`, tiền GBP) vẫn nhận thẻ bình thường; hỏng ở PMC Live mà GHL gắn cho Payment Links (`pmc_1QwbmaFpU9DlKp7Rz0UJuJeH`): Stripe báo "You do not have the capabilities required for payment method `card`". Dựng Payment Element chỉ `card` thì chạy. Kết nối Stripe trong GHL từ 10/2024 (`enablePaymentElement:false`). Cách sửa: lưu lại cấu hình Payment Methods (Live → Payment Links) để GHL tạo PMC mới; không được thì nối lại Stripe (cần chủ Stripe). Chờ Fender đồng ý. Điều khoản hoàn/huỷ cọc (Ed).
+- [ ] **Lỗi cọc Live (chẩn đoán xong 09/11):** tài khoản Stripe DMI `acct_1JSYy9JHa6Xz3bE9` (GBP, nối GHL từ 10/2024) **không có capability `card_payments` ở live**: Stripe trả "You do not have the capabilities required for payment method `card`" với PMC của GHL (`pmc_1QwbmaFpU9DlKp7Rz0UJuJeH`). Đã thử gạt lưu lại Payment Methods (Live → Payment Links): GHL lưu thẳng vào PMC cũ, lỗi không đổi → đã bật lại như cũ. Thẻ Ed "vẫn connect" là thẻ trả phí agency GHL (Stripe của GHL), khác tài khoản nhận tiền. Cần Ed vào Stripe dashboard tài khoản này xem "Payments/Card payments" bị tắt/yêu cầu xác minh, hoặc nối Stripe khác vào GHL. Điều khoản hoàn/huỷ cọc (Ed).
 - [ ] Fender: dựng workflow GHL "BF26 Deposit paid" (trigger Payment Received, sản phẩm Black Friday 2026 Website Deposit → tag `bf26-deposit-paid` → email link lịch Jesse), bản Draft cần duyệt rồi Publish. UI workflow nằm trong iframe, Claude không click được.
 
 ## Cấu trúc
@@ -35,7 +35,7 @@
 - Preview: launch `dmi-blackfriday` cổng 8770. QA: `node 4-tools/shots.js` (ảnh vào `4-tools/qa/`), `node 4-tools/flow-test.js` (thử luồng form → checkout → cảm ơn).
 
 ## Bộ đếm "Only 10 available" (Ed 09/11)
-- `/api/spots` (Worker): `SPOTS_TOTAL` (var, 10) trừ số đơn GHL `paid` + `liveMode` có `sourceId` là 2 Payment Link BF, cache 60s. Hiện ở đầu hero (`parts/hero-copy.html`, `.bf-spots`) và trong ô 50% OFF ở checkout; script trong `bf.js`. Đổi tổng: sửa `SPOTS_TOTAL` trong `wrangler.jsonc`.
+- `/api/spots` (Worker): `SPOTS_TOTAL` (var, 10) trừ số đơn GHL `paid` + `liveMode` có `sourceId` là 2 Payment Link BF, cache 60s. Máy tính: dòng trên kicker ở hero (`.bf-spots`); điện thoại: hàng cuối khối giá (`.bf-spots-m`) (`parts/hero-copy.html`) và trong ô 50% OFF ở checkout; script trong `bf.js`. Đổi tổng: sửa `SPOTS_TOTAL` trong `wrangler.jsonc`.
 
 ## Trang review cho Ed
 - `/review/?k=<REVIEW_KEY>` (khoá ở `.dev.vars` + secret Cloudflare `REVIEW_KEY`, không đưa vào git). Xem trước Landing/Checkout/Thank-you (máy tính/điện thoại), góp ý theo từng block (tự nhận block đang xem), danh sách Open/Done, nút Reply. Lưu ở KV `FEEDBACK` (id `604531afecd94bc28aefa8b52994a606`), API `/api/feedback` trong `src/worker.js`. Trang có `noindex` + `no-store`.

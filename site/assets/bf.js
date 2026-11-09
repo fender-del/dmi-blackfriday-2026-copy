@@ -52,7 +52,7 @@ window.BF = {
     fetch(base + 'api/spots').then(r => r.json()).then(d => {
       if (!d || !d.ok) return;
       spots.forEach(el => {
-        el.querySelector('[data-left]').textContent = d.left > 0 ? ' · ' + d.left + ' left' : ' · fully booked';
+        el.querySelector('[data-left]').textContent = (el.classList.contains('bf-spots-m') ? '' : ' · ') + (d.left > 0 ? d.left + ' left' : 'fully booked');
         el.querySelector('i').innerHTML = Array.from({ length: d.total }, (_, i) => '<em' + (i < d.taken ? ' class="x"' : '') + '></em>').join('');
         el.classList.add('on');
       });

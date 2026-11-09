@@ -104,4 +104,19 @@
 .bf-spots i em{flex:1;height:6px;border-radius:2px;background:#0076FF}
 .bf-spots i em.x{background:rgba(169,189,211,.25)}
 .bf-spots:not(.on) i{display:none}
-@media (max-width:640px){.bf-spots{margin:14px 0 12px}.bf-spots p{font-size:14px}}
+
+
+/* phones: the counter moves into the offer block as its last row (desktop keeps the line above the kicker) */
+.bf-spots-m{display:none}
+@media (max-width:640px){
+  .dmx-show .bf-l>.bf-spots:not(.bf-spots-m){display:none}
+  .dmx-show .bf-hero .tiers{border-radius:0}
+  .dmx-show .bf-spots-m{display:block;margin:0;padding:11px 16px 13px;border:1px solid rgba(169,214,255,.18);border-top:1px solid rgba(169,214,255,.12);border-radius:0 0 14px 14px;background:rgba(6,17,31,.7);animation:dmxRise 1.6s cubic-bezier(.22,1,.36,1) 2.3s both}
+  .bf-spots-m p{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:#C3CDDD;text-shadow:none}
+  .bf-spots-m p b{font-weight:700;color:#fff}
+  .bf-spots-m p span{font-weight:700;color:#4FB0FF}
+  .bf-spots-m i{max-width:none;gap:2px;margin-top:8px}
+  .bf-spots-m i em{height:3px;border-radius:0}
+  .bf-spots-m i em:first-child{border-radius:2px 0 0 2px}
+  .bf-spots-m i em:last-child{border-radius:0 2px 2px 0}
+}
