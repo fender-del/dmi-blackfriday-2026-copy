@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Reserve your Black Friday website | Detailers Movement</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#06111F">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/bf.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></symbol>
+</svg>
+
+<header class="hd">
+  <div class="wrap">
+    <a class="logo" href="../" aria-label="Back to the Black Friday offer"><img src="../assets/logo-dmi-dark-header.webp" alt="Detailers Movement" width="155" height="30"></a>
+    <nav><a href="../#packages">Packages</a><a href="../#examples">Examples</a><a href="../#reviews">Reviews</a></nav>
+  </div>
+</header>
+
+<main class="co">
+  <div class="wrap">
+    <div class="co-top">
+      <div>
+        <h1>Choose your <span class="hl">Black Friday</span><br>website package.</h1>
+        <p class="intro">Select Standard or Premium below. Reserve your Black Friday price with a <b>$99 deposit</b>, which is credited toward the package total. Pay the remaining website balance within 14 calendar days.</p>
+      </div>
+      <div class="badge"><b>50% OFF</b><span>Black Friday website sale</span></div>
+    </div>
+    <ol class="steps">
+      <li>Select your website package</li>
+      <li>Review your $99 deposit</li>
+      <li>Enter your details and reserve</li>
+    </ol>
+
+    <h2>Which website would you like?</h2>
+    <p class="h2sub">Both packages are built for detailing, ceramic coating, PPF and window tint businesses.</p>
+    <div class="pick" role="radiogroup" aria-label="Website package">
+      <label class="opt">
+        <input type="radio" name="pkg" value="standard">
+        <div>
+          <span class="lbl">Standard</span>
+          <h3>Standard <span class="hl">Website</span></h3>
+          <div class="p"><b>$500</b><span>Normally <s>$1,000</s></span></div>
+          <span class="save">Save $500</span>
+          <p class="d">A professional website on a proven DMI design, customised for your business.</p>
+        </div>
+        <div class="img"><img src="../assets/std-diwal-auto-pros.webp" alt="" width="760" height="475"></div>
+        <div class="chips"><span>Up to 20 pages</span><span>Mobile optimised</span><span>Lead forms</span><span>SEO-friendly setup</span><span>$25/mo hosting</span></div>
+      </label>
+      <label class="opt">
+        <input type="radio" name="pkg" value="premium">
+        <div>
+          <span class="lbl">Premium · Best value</span>
+          <h3>Premium <span class="hl">Website</span></h3>
+          <div class="p"><b>$990</b><span>Normally <s>$2,000</s></span></div>
+          <span class="save">Save $1,010</span>
+          <p class="d">An upgraded premium design plus 3 months of Local SEO and a free 5-year ceramic coating bottle.</p>
+        </div>
+        <div class="img"><img src="../assets/prm-3-d.webp" alt="" width="1200" height="750"></div>
+        <div class="chips"><span>Up to 30 pages</span><span>3 months Local SEO (value $897)</span><span>Free 50ml ceramic coating</span><span>12 months hosting $25/mo</span></div>
+      </label>
+    </div>
+
+    <h2>Reserve your website for $99.</h2>
+    <p class="h2sub">Confirm your package, check the order summary and enter your details.</p>
+    <div class="res">
+      <form class="panel" id="payForm" novalidate>
+        <h3>Your details</h3>
+        <p class="note">Your selected package is <b id="selName">Standard Website</b>. You can change it using the cards above.</p>
+        <div class="grid2 f2">
+          <div><label for="f-name">Your full name</label><input id="f-name" name="name" autocomplete="name" placeholder="Jane Smith" required></div>
+          <div><label for="f-biz">Business name</label><input id="f-biz" name="business" autocomplete="organization" placeholder="Smith Auto Detailing" required></div>
+          <div><label for="f-email">Email address</label><input id="f-email" name="email" type="email" autocomplete="email" placeholder="jane@business.com" required></div>
+          <div><label for="f-phone">Phone number (optional)</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 000-0000"></div>
+        </div>
+        <label class="agree"><input type="checkbox" name="agree" required><span>I understand that the $99 deposit is part of my website package price, the remaining balance is due within 14 calendar days of payment, and hosting costs an additional $25/month under a 12-month commitment.</span></label>
+        <p class="paynote"><svg><use href="#i-lock"/></svg><span>You'll pay the deposit on our secure payment page (Airwallex). Card details are never entered on this page.</span></p>
+        <p class="demo" id="demoNote" hidden>Demo: no payment link yet, the button goes straight to the thank-you page. No deposit is taken.</p>
+        <button class="btn wide" type="submit" id="payBtn">Pay $99 deposit <svg><use href="#i-arrow"/></svg></button>
+      </form>
+
+      <aside class="panel sum" aria-live="polite">
+        <h3 id="sumName">Standard Website</h3>
+        <div class="hero-p"><div><small>Black Friday price</small><b id="sumPrice">$500</b></div><span>Normally <span id="sumNormal">$1,000</span><br>You save <span id="sumSave">$500</span></span></div>
+        <dl>
+          <div class="ln" id="lnDesign" hidden><dt>Design</dt><dd id="dDesign"></dd></div>
+          <div class="ln"><dt>Normal price</dt><dd><s id="lnNormal">$1,000</s></dd></div>
+          <div class="ln"><dt>Black Friday price</dt><dd id="lnPrice">$500</dd></div>
+          <div class="ln today"><dt>Pay today (deposit)</dt><dd>$99</dd></div>
+          <div class="ln"><dt>Remaining balance, due within 14 days</dt><dd id="lnRest">$401</dd></div>
+          <div class="ln"><dt>Hosting, additional</dt><dd>$25/month</dd></div>
+        </dl>
+        <p class="fine">Hosting has a 12-month commitment and is billed separately from the discounted website price.</p>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="ft">
+  <div class="wrap">
+    <img src="../assets/logo-dmi-dark-header.webp" alt="Detailers Movement" width="124" height="24">
+    <span>© 2026 Detailers Movement · <a href="https://www.detailersmovement.com/">detailersmovement.com</a></span>
+  </div>
+</footer>
+
+<script src="../assets/bf.js"></script>
+<script>
+(function(){
+  const {PACKAGES,DEPOSIT,CONFIG,fmt}=window.BF;
+  const radios=[...document.querySelectorAll('input[name=pkg]')];
+  const $=id=>document.getElementById(id);
+  const QS=new URLSearchParams(location.search),start=QS.get('pkg');
+  let design=(QS.get('design')||'').slice(0,80); // design picked on the landing page; dropped if they switch package
+  (radios.find(r=>r.value===start)||radios[0]).checked=true;
+
+  function render(){
+    const k=radios.find(r=>r.checked).value,p=PACKAGES[k];
+    $('selName').textContent=p.name+' ('+fmt(p.price)+')';
+    $('sumName').textContent=p.name;
+    $('sumPrice').textContent=$('lnPrice').textContent=fmt(p.price);
+    $('sumNormal').textContent=$('lnNormal').textContent=fmt(p.normal);
+    $('sumSave').textContent=fmt(p.normal-p.price);
+    $('lnRest').textContent=fmt(p.price-DEPOSIT);
+    $('demoNote').hidden=!!CONFIG.airwallex[k];
+    if(design&&k!==start)design='';
+    $('lnDesign').hidden=!design;$('dDesign').textContent=design;
+    history.replaceState(null,'','?pkg='+k+(design?'&design='+encodeURIComponent(design):''));
+  }
+  radios.forEach(r=>r.addEventListener('change',render));
+  render();
+
+  // prefill from the landing-page lead form
+  const lead=window.BF.lead();
+  if(lead){ $('f-name').value=lead.name||''; $('f-email').value=lead.email||''; $('f-biz').value=lead.business||''; $('f-phone').value=lead.phone||''; }
+
+  $('payForm').addEventListener('submit',async e=>{
+    e.preventDefault();
+    const f=e.target;
+    if(!f.checkValidity()){ f.reportValidity(); return; }
+    const k=radios.find(r=>r.checked).value,p=PACKAGES[k],d=Object.fromEntries(new FormData(f));
+    $('payBtn').disabled=true;
+    await window.BF.send({type:'deposit_started',package:p.name,package_price:p.price,design:design||undefined,deposit:DEPOSIT,name:d.name,email:d.email,business:d.business,phone:d.phone});
+    try{sessionStorage.setItem('bf_pkg',k);}catch(err){}
+    location.href=CONFIG.airwallex[k]||('../thank-you/?pkg='+k+'&demo=1');
+  });
+})();
+</script>
+</body>
+</html>

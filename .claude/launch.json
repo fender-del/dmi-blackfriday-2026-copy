@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "dmi-blackfriday", "runtimeExecutable": "npx", "runtimeArgs": ["-y", "wrangler@4", "dev", "--port", "8770", "--ip", "127.0.0.1"], "port": 8770 }
+  ]
+}

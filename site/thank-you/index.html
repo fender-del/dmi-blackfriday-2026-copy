@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Your website is reserved | Detailers Movement</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#06111F">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/bf.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+</svg>
+<header class="hd">
+  <div class="wrap">
+    <a class="logo" href="../"><img src="../assets/logo-dmi-dark-header.webp" alt="Detailers Movement" width="155" height="30"></a>
+  </div>
+</header>
+
+<main class="ty">
+  <div class="wrap">
+    <h1>Thank you. Your <span class="hl" id="pkgName">website</span> is reserved.</h1>
+    <p class="intro">Your $99 deposit locks in the Black Friday price. The last step is a short call with Jesse to plan your new website.</p>
+    <a class="btn" id="bookBtn" href="#" target="_blank" rel="noopener">Book your call with Jesse <svg><use href="#i-arrow"/></svg></a>
+    <p class="demo" id="demoNote" hidden>Demo: Jesse's booking link is not set yet.</p>
+    <ol class="next">
+      <li><div><b>Book your call with Jesse</b><span>Pick a time that suits you. We'll also email you the booking link.</span></div></li>
+      <li><div><b>Plan your website</b><span>We go through your services, pages and the design you like.</span></div></li>
+      <li><div><b>Pay the balance and we start building</b><span>The remaining balance is due within 14 calendar days of your deposit.</span></div></li>
+    </ol>
+  </div>
+</main>
+
+<footer class="ft">
+  <div class="wrap">
+    <img src="../assets/logo-dmi-dark-header.webp" alt="Detailers Movement" width="124" height="24">
+    <span>© 2026 Detailers Movement · <a href="https://www.detailersmovement.com/">detailersmovement.com</a></span>
+  </div>
+</footer>
+
+<script src="../assets/bf.js"></script>
+<script>
+(function(){
+  const {PACKAGES,CONFIG}=window.BF;
+  const k=new URLSearchParams(location.search).get('pkg')||sessionStorage.getItem('bf_pkg');
+  if(PACKAGES[k]) document.getElementById('pkgName').textContent=PACKAGES[k].name;
+  const b=document.getElementById('bookBtn');
+  if(CONFIG.jesseCalendar) b.href=CONFIG.jesseCalendar;
+  else { b.removeAttribute('target'); document.getElementById('demoNote').hidden=false; }
+})();
+</script>
+</body>
+</html>

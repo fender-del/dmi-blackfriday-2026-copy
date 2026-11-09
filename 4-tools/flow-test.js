@@ -1,0 +1,22 @@
+'use strict';
+const puppeteer = require('C:/Users/ASUS/Downloads/miracledetail - website rebuild/site/node_modules/puppeteer-core');
+(async () => {
+  const b = await puppeteer.launch({ executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe', headless: 'new' });
+  const p = await b.newPage(); await p.setViewport({ width: 390, height: 844, isMobile: true });
+  const errs = []; p.on('pageerror', e => errs.push(e.message)); p.on('console', m => m.type() === 'error' && errs.push(m.text()));
+  await p.goto('http://localhost:8770/?utm_source=email&utm_campaign=bf26', { waitUntil: 'networkidle0' });
+  console.log('short btn visible:', await p.$eval('.hd .short', e => getComputedStyle(e).display));
+  await p.type('#claim [name=name]', 'Test Lead'); await p.type('#claim [name=email]', 'test@example.com'); await p.type('#claim [name=business]', 'Test Detailing');
+  await Promise.all([p.waitForNavigation(), p.click('#claim button')]);
+  console.log('at', p.url());
+  console.log('prefill', await p.evaluate(() => [document.querySelector('#f-name').value, document.querySelector('#f-email').value, document.querySelector('#f-biz').value]));
+  await p.click('label.opt:nth-child(2)');
+  console.log('summary', await p.evaluate(() => [sumName.textContent, lnRest.textContent, location.search]));
+  await p.click('#payBtn'); await new Promise(r => setTimeout(r, 300));
+  console.log('blocked without checkbox, still at', p.url());
+  await p.click('[name=agree]');
+  await Promise.all([p.waitForNavigation(), p.click('#payBtn')]);
+  console.log('at', p.url(), '|', await p.$eval('h1', e => e.textContent));
+  console.log('errors:', errs.length ? errs : 'none');
+  await b.close();
+})();

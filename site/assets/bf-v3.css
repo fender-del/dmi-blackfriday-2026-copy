@@ -1,0 +1,58 @@
+/* Black Friday additions on top of the V3 page (hero form, end form, offer strip) */
+
+/* hero: headline left, lead form right */
+.dmx-show .copy.bf-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,410px);gap:56px;align-items:center;text-align:left;padding-top:24px;padding-bottom:24px}
+.dmx-show .bf-hero h1{margin:0;max-width:none;font-size:clamp(44px,5.6vw,86px)}
+.dmx-show .bf-k{margin:0 0 18px;color:#C3CDDD;font:500 15px Inter,sans-serif;text-shadow:0 2px 18px rgba(5,13,24,.9);animation:dmxRise 1.6s cubic-bezier(.22,1,.36,1) .9s both}
+.dmx-show .bf-off{display:inline-flex;flex-direction:column;margin:26px 0 0;padding:12px 22px 14px;border-radius:14px;background:linear-gradient(135deg,#0055FF,#0076FF);box-shadow:0 20px 50px -20px rgba(0,118,255,.8);animation:dmxRise 1.6s cubic-bezier(.22,1,.36,1) 1.5s both}
+.dmx-show .bf-off b{font:800 clamp(34px,3.6vw,50px)/1 Manrope,Inter,sans-serif;letter-spacing:-.03em;color:#fff}
+.dmx-show .bf-off span{margin-top:4px;font:700 14px Manrope,Inter,sans-serif;color:#fff}
+.dmx-show .bf-hero .proof,.dmx-show .bf-hero .tiers{justify-content:flex-start}
+.dmx-show .bf-hero .proof{margin-top:28px}
+.dmx-show .bf-hero .tiers{margin-left:-22px}
+
+/* shade behind the headline so it reads over the moving wall (the wall stays visible on the right) */
+.dmx-show .bf-shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(5,13,24,.92) 0%,rgba(5,13,24,.78) 34%,rgba(5,13,24,.35) 58%,rgba(5,13,24,.2) 70%,rgba(5,13,24,.55) 100%)}
+@media (max-width:640px){.dmx-show .bf-shade{background:linear-gradient(180deg,rgba(5,13,24,.35) 0%,rgba(5,13,24,.82) 22%,rgba(5,13,24,.92) 50%,#06111F 80%)}}
+
+/* forms (hero + end) */
+.bf-form{pointer-events:auto;text-align:left}
+.dmx-show .bf-form{padding:28px;border-radius:22px;background:rgba(6,17,31,.88);border:1px solid rgba(169,214,255,.18);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 40px 80px -40px rgba(0,0,0,.9);animation:dmxRise 1.6s cubic-bezier(.22,1,.36,1) 1.8s both}
+.dmx .bf-form h2{margin:0;font:800 26px/1.12 Manrope,Inter,sans-serif;letter-spacing:-.02em;color:#fff}
+.bf-form>p{margin:10px 0 18px;color:#A9BDD3;font-size:14.5px;line-height:1.5}
+.bf-f{position:relative;display:block;margin-bottom:10px}
+.bf-f input{width:100%;height:52px;padding:0 16px 0 46px;border:1px solid rgba(169,189,211,.3);border-radius:12px;background:#fff;color:#212A40;font:500 16px Inter,sans-serif}
+.bf-f input:focus{outline:2px solid #2EA8FF;outline-offset:1px}
+.bf-f svg{position:absolute;left:16px;top:50%;width:18px;height:18px;margin-top:-9px;color:#6A7891;pointer-events:none}
+.bf-form .btn{width:100%;margin-top:4px}
+.bf-form .bf-sec{display:flex;align-items:center;justify-content:center;gap:8px;margin:14px 0 0;color:#8592AA;font-size:13px}
+.bf-form .bf-sec svg{width:14px;height:14px}
+
+/* end block: the form sits inside V3's dark CTA card */
+.dmx-end .cta .bf-form-end{margin-top:26px}
+.dmx-end .cta .bf-form-end .bf-sec{color:#B5C2D6}
+
+/* offer strip before the footer */
+.bf-strip{background:linear-gradient(135deg,#0055FF,#0076FF);color:#fff}
+.bf-strip .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:128px}
+.bf-strip p{margin:0}
+.bf-strip p b{display:block;font:800 30px/1.1 Manrope,Inter,sans-serif;letter-spacing:-.02em}
+.bf-strip p span{display:block;opacity:.9;margin-top:4px}
+.bf-strip .big{text-align:right;font:800 54px/1 Manrope,Inter,sans-serif;letter-spacing:-.03em}
+.bf-strip .big span{font:600 16px Inter,sans-serif;letter-spacing:0}
+
+@media (max-width:1024px){
+  .dmx-show .copy.bf-hero{grid-template-columns:1fr;gap:28px;max-width:640px}
+}
+@media (max-width:640px){
+  .dmx-show .copy.bf-hero{padding-top:0;padding-bottom:0}
+  .dmx-show .bf-hero h1{font-size:clamp(40px,11.4vw,52px)}
+  .dmx-show .bf-k{font-size:13.5px;margin-bottom:12px}
+  .dmx-show .bf-off{margin-top:18px;padding:10px 18px 12px}
+  .dmx-show .bf-hero .proof{margin-top:18px}
+  .dmx-show .bf-hero .tiers{margin-left:-12px}
+  .dmx-show .bf-form{padding:22px}
+  .dmx .bf-form h2{font-size:23px}
+  .bf-strip .wrap{flex-direction:column;align-items:flex-start;padding:28px 0;gap:12px}
+  .bf-strip .big{text-align:left;font-size:42px}
+}

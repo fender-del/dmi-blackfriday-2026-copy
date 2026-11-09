@@ -1,0 +1,10 @@
+// Cloudflare Worker: static site in ./site + /api/lead -> GoHighLevel.
+// Temporary on workers.dev during design; DMI IT (anh Bằng) adds the subdomain later.
+// Secret: `npx wrangler secret put GHL_TOKEN` (local dev reads .dev.vars, which is git-ignored).
+{
+  "name": "dmi-blackfriday",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-10-01",
+  "assets": { "directory": "./site", "binding": "ASSETS", "html_handling": "auto-trailing-slash", "run_worker_first": ["/api/*"] },
+  "vars": { "GHL_LOCATION_ID": "yqROQIaNeeK0xIpi4n67" }
+}
