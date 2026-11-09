@@ -45,6 +45,20 @@ window.BF = {
     } catch (e) { console.warn('GHL webhook failed', e); return false; }
   };
 
+  // "Only 10 available" counter: live from GHL (10 minus paid deposits), 10 small blocks with the taken ones dimmed
+  const spots = document.querySelectorAll('[data-spots]');
+  if (spots.length) {
+    const base = location.pathname.replace(/(checkout|thank-you|review)\/.*$/, '');
+    fetch(base + 'api/spots').then(r => r.json()).then(d => {
+      if (!d || !d.ok) return;
+      spots.forEach(el => {
+        el.querySelector('[data-left]').textContent = d.left > 0 ? ' · ' + d.left + ' left' : ' · fully booked';
+        el.querySelector('i').innerHTML = Array.from({ length: d.total }, (_, i) => '<em' + (i < d.taken ? ' class="x"' : '') + '></em>').join('');
+        el.classList.add('on');
+      });
+    }).catch(() => {});
+  }
+
   window.BF.lead = function () { try { return JSON.parse(sessionStorage.getItem('bf_lead') || 'null'); } catch (e) { return null; } };
 
   // Lead forms (landing): send to GHL, then continue to the $99 checkout

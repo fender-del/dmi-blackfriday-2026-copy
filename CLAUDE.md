@@ -24,7 +24,7 @@
 
 ## Việc chờ người khác
 - [ ] Steve → anh Bằng: gắn subdomain detailersmovement.com cho worker.
-- [ ] **Ed: Stripe live của DMI không nhận thanh toán** (link GHL Live báo "No valid payment method available"; link Test mode thì hiện ô thẻ). Ed kiểm Stripe dashboard / nối lại Stripe trong GHL. Điều khoản hoàn/huỷ cọc.
+- [ ] **Lỗi cọc Live (đã tìm ra 09/11):** Stripe của DMI (`acct_1JSYy9JHa6Xz3bE9`, tiền GBP) vẫn nhận thẻ bình thường; hỏng ở PMC Live mà GHL gắn cho Payment Links (`pmc_1QwbmaFpU9DlKp7Rz0UJuJeH`): Stripe báo "You do not have the capabilities required for payment method `card`". Dựng Payment Element chỉ `card` thì chạy. Kết nối Stripe trong GHL từ 10/2024 (`enablePaymentElement:false`). Cách sửa: lưu lại cấu hình Payment Methods (Live → Payment Links) để GHL tạo PMC mới; không được thì nối lại Stripe (cần chủ Stripe). Chờ Fender đồng ý. Điều khoản hoàn/huỷ cọc (Ed).
 - [ ] Fender: dựng workflow GHL "BF26 Deposit paid" (trigger Payment Received, sản phẩm Black Friday 2026 Website Deposit → tag `bf26-deposit-paid` → email link lịch Jesse), bản Draft cần duyệt rồi Publish. UI workflow nằm trong iframe, Claude không click được.
 
 ## Cấu trúc
@@ -33,6 +33,9 @@
 - Payload gửi GHL: `type` = `lead` (form hero/quote) hoặc `deposit_started` (checkout), kèm `package`, `package_price`, `deposit`, `name/email/business/phone`, `utm_*`, `campaign`. Lead form xong thì chuyển sang checkout, thông tin điền sẵn (sessionStorage).
 - Tài sản chép từ dự án `Downloads/DMI- Service Website-Design` bằng `4-tools/prep_assets.py`. Standard: First Choice, Daniels, Diwal, ATD, Slim's (crop 16:10 đầu trang). Premium: Design 1–5 (link steve-7e8 themes). Review: 3 câu thật (Ryan Lindsey, Michael Heintz, Joey Love). Nền hero = ảnh studio của Premium Design 4.
 - Preview: launch `dmi-blackfriday` cổng 8770. QA: `node 4-tools/shots.js` (ảnh vào `4-tools/qa/`), `node 4-tools/flow-test.js` (thử luồng form → checkout → cảm ơn).
+
+## Bộ đếm "Only 10 available" (Ed 09/11)
+- `/api/spots` (Worker): `SPOTS_TOTAL` (var, 10) trừ số đơn GHL `paid` + `liveMode` có `sourceId` là 2 Payment Link BF, cache 60s. Hiện ở đầu hero (`parts/hero-copy.html`, `.bf-spots`) và trong ô 50% OFF ở checkout; script trong `bf.js`. Đổi tổng: sửa `SPOTS_TOTAL` trong `wrangler.jsonc`.
 
 ## Trang review cho Ed
 - `/review/?k=<REVIEW_KEY>` (khoá ở `.dev.vars` + secret Cloudflare `REVIEW_KEY`, không đưa vào git). Xem trước Landing/Checkout/Thank-you (máy tính/điện thoại), góp ý theo từng block (tự nhận block đang xem), danh sách Open/Done, nút Reply. Lưu ở KV `FEEDBACK` (id `604531afecd94bc28aefa8b52994a606`), API `/api/feedback` trong `src/worker.js`. Trang có `noindex` + `no-store`.
@@ -54,6 +57,7 @@
 - QA: `node 4-tools/shots-v3.js <url>` (ảnh từng block), `node 4-tools/flow-test-v3.js <url>` (6 bước, chặn `/api/lead` và trang Stripe nên không tạo contact rác).
 
 ## Nhật ký
+- **09/11/2026 (tối, mail Ed 15:36–15:38):** "get everything connected up so we can test it tomorrow" + "add a COUNTER at top - ONLY 10 Available" → làm bộ đếm thật từ GHL. Chẩn đoán lỗi cọc Live (xem Việc chờ).
 - **09/11/2026 (đêm muộn):** Fender gửi ảnh chai thật DMI Atomic G5 (graphene ceramic, 50mL, 5 năm; gốc ở `0-brief/dmi-atomic-g5-bottle.png`). Nền tối trùng tông chai nên không tách nền: cắt ô dọc 530×896 (tỉ lệ 0,592 giữ nguyên) → `site/assets/bf-bottle-dmi.webp`, hiện trong thẻ Premium; quà đổi tên "DMI Atomic G5 ceramic coating" ở landing, checkout, FAQ. Đã xoá ảnh Apeax tạm.
 - **09/11/2026 (tối muộn):** So lại mock Ed lần cuối: thêm nút header "Get the Black Friday deal", lời dẫn form hero theo mock, Premium "Best value", nút "Get the Standard website for $500". Không lấy 3 slogan (Get More Leads…) và review giả. Dựng trang `/review` cho Ed góp ý.
 - **09/11/2026 (khuya 2):** Mail Ed (qua Steve): 50% OFF model, giữ 2 hosting, tặng chai ceramic DMI, 20/30 trang, cọc qua GHL, sau cọc → lịch Jesse. Đã: sửa giá/quyền lợi toàn trang + checkout, chai Apeax tạm, hero điện thoại gọn 1 màn (bỏ kicker + proof, khối 50% OFF + giá gạch), tạo product + 2 Payment Link trong GHL, nối link lịch Jesse. Stripe live của DMI (đã nối GHL, từng thu $99 qua funnel marketingtoolkits 11/2024) hiện không thanh toán được → chờ Ed.

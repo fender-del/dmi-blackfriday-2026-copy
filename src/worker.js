@@ -11,6 +11,7 @@ export default {
     const url = new URL(req.url);
     if (url.pathname === '/api/lead') return handleLead(req, env);
     if (url.pathname.startsWith('/api/feedback')) return handleFeedback(req, env, url);
+    if (url.pathname === '/api/spots') return handleSpots(env);
     const res = await env.ASSETS.fetch(req);
     if (url.pathname.startsWith('/review')) {
       // the review board is private: never indexed, never cached
@@ -121,4 +122,27 @@ async function handleFeedback(req, env, url) {
   const item = { id, at, page: PAGES.includes(d.page) ? d.page : 'other', section: clip(d.section, 80), name: clip(d.name, 60) || 'Ed', text, status: 'open' };
   await env.FEEDBACK.put(id, JSON.stringify(item));
   return json({ ok: true, item });
+}
+
+// ---- "Only 10 available" counter (Ed, 09/11): total minus paid $99 deposits made through the two BF payment links ----
+const DEPOSIT_LINKS = ['6af14a3303c375ed645fe306', '6af14af7d4cfb789aef226ae'];
+async function handleSpots(env) {
+  const total = Number(env.SPOTS_TOTAL || 10);
+  const cache = caches.default, key = new Request('https://cache.local/bf26-spots');
+  const hit = await cache.match(key);
+  if (hit) return hit;
+  let taken = null;
+  try {
+    const r = await fetch(`${GHL}/payments/orders?altId=${env.GHL_LOCATION_ID}&altType=location&limit=100`, {
+      headers: { Authorization: `Bearer ${env.GHL_TOKEN}`, Version: '2021-07-28', Accept: 'application/json' },
+    });
+    if (r.ok) {
+      const d = await r.json();
+      taken = (d.data || []).filter(o => o.liveMode && o.paymentStatus === 'paid' && DEPOSIT_LINKS.includes(o.sourceId)).length;
+    }
+  } catch (e) {}
+  const body = { ok: taken !== null, total, taken, left: taken === null ? null : Math.max(0, total - taken) };
+  const res = new Response(JSON.stringify(body), { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=60' } });
+  if (taken !== null) await cache.put(key, res.clone());
+  return res;
 }

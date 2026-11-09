@@ -94,3 +94,14 @@
 /* Standard: one clear reserve button under the inclusions (mock) */
 .dmx.std .bf-std-go{display:inline-flex;margin-top:26px}
 @media (max-width:640px){.dmx.std .bf-std-go{display:flex;width:100%;justify-content:center}}
+
+/* "Only 10 available" counter (Ed 09/11): text + 10 blocks, filled from /api/spots */
+.bf-spots{margin:0 0 18px;animation:dmxRise 1.6s cubic-bezier(.22,1,.36,1) .7s both}
+.bf-spots p{margin:0;color:#DCE4F0;font:500 15px Inter,sans-serif;text-shadow:0 2px 18px rgba(5,13,24,.9)}
+.bf-spots p b{color:#fff;font-weight:700}
+.bf-spots p span{color:#4FB0FF;font-weight:700}
+.bf-spots i{display:flex;gap:4px;margin-top:8px;max-width:260px}
+.bf-spots i em{flex:1;height:6px;border-radius:2px;background:#0076FF}
+.bf-spots i em.x{background:rgba(169,189,211,.25)}
+.bf-spots:not(.on) i{display:none}
+@media (max-width:640px){.bf-spots{margin:14px 0 12px}.bf-spots p{font-size:14px}}

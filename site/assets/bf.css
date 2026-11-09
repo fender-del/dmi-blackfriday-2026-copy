@@ -269,3 +269,13 @@ s{color:var(--dim);text-decoration-thickness:2px}
 .host input{margin-top:2px;accent-color:var(--blue);flex:none}
 .host b{display:block;color:var(--text);font:700 15px Manrope,Inter,sans-serif}
 @media (max-width:640px){.host{grid-template-columns:1fr}}
+
+/* "Only 10 available" counter inside the checkout badge */
+.co .badge .bf-spots{margin-top:10px;padding-top:10px;border-top:1px solid var(--line2)}
+.co .badge .bf-spots p{margin:0;font:500 13px Inter,sans-serif;color:var(--muted)}
+.co .badge .bf-spots p b{display:inline;font:700 13px Inter,sans-serif;color:#fff}
+.co .badge .bf-spots p span{font:700 13px Inter,sans-serif;color:var(--bright)}
+.co .badge .bf-spots i{display:flex;gap:3px;margin-top:7px}
+.co .badge .bf-spots i em{flex:1;height:5px;border-radius:2px;background:var(--blue)}
+.co .badge .bf-spots i em.x{background:var(--line2)}
+.co .badge .bf-spots:not(.on) i{display:none}
