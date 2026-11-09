@@ -44,7 +44,7 @@ html = must_replace(html, "</head>", '<link rel="stylesheet" href="assets/bf-v3.
 # 3. header: one Black Friday CTA instead of Book a call + Login
 for cta in re.findall(r'<div class="(?:hd-cta|dr-cta)">.*?</div>', html, re.S):
     cls = "hd-cta" if "hd-cta" in cta else "dr-cta"
-    html = html.replace(cta, f'<div class="{cls}"><a class="hb hb-primary" href="#claim"><span>Claim 50% off</span></a></div>')
+    html = html.replace(cta, f'<div class="{cls}"><a class="hb hb-primary" href="#claim"><span>Get the Black Friday deal</span></a></div>')
 
 # 4. hero: keep the wall, replace the copy with headline + lead form
 hero_copy = re.search(r' <div class="wrap copy">.*?\n </div>\n', html, re.S)
@@ -72,6 +72,12 @@ chk = m.group(1)
 std_inc = ["Up to 20 pages", "Mobile &amp; tablet optimised", "Lead forms &amp; contact integration",
            "SEO-friendly setup", "Google Analytics &amp; Search Console"]
 html = html[: m.start()] + "".join(f"<li>{chk}{t}</li>" for t in std_inc) + html[m.end():]
+# Premium is the best value (mock); Standard gets its own reserve button (mock: "Get the Standard Website")
+html = must_replace(html, '<em class="bf-pct">50% OFF</em> + hosting from $25/month</small></h2>\n    <p class="tsub">Pick a design.',
+                    '<em class="bf-pct">50% OFF</em> Best value · + hosting from $25/month</small></h2>\n    <p class="tsub">Pick a design.')
+m = re.search(r'(<li class="ho">Hosting, 12-month commitment.*?</li>\n  </ul>)', html)
+assert m
+html = html[: m.end()] + '\n  <a class="btn btn-primary bf-std-go" href="checkout/?pkg=standard">Get the Standard website for $500</a>' + html[m.end():]
 html = must_replace(html, '<p class="pr"><b>$500</b>+ hosting from $25/month</p>',
                     '<p class="pr"><s class="bf-was">$1,000</s> <b>$500</b>+ hosting from $25/month</p>')
 html = must_replace(html, '<li>Website design &amp; build<b>$2,000</b></li>\n     <li>Local SEO, 3 months<b>$897</b></li>',

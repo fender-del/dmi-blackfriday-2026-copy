@@ -89,3 +89,7 @@
   .bf-f input{height:48px}
   .p3-rc li.bf-gift img{height:48px}
 }
+
+/* Standard: one clear reserve button under the inclusions (mock) */
+.dmx.std .bf-std-go{display:inline-flex;margin-top:26px}
+@media (max-width:640px){.dmx.std .bf-std-go{display:flex;width:100%;justify-content:center}}

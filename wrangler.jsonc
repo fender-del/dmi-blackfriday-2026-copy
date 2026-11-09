@@ -5,6 +5,7 @@
   "name": "dmi-blackfriday",
   "main": "src/worker.js",
   "compatibility_date": "2026-10-01",
-  "assets": { "directory": "./site", "binding": "ASSETS", "html_handling": "auto-trailing-slash", "run_worker_first": ["/api/*"] },
+  "assets": { "directory": "./site", "binding": "ASSETS", "html_handling": "auto-trailing-slash", "run_worker_first": ["/api/*", "/review*"] },
+  "kv_namespaces": [{ "binding": "FEEDBACK", "id": "604531afecd94bc28aefa8b52994a606" }],
   "vars": { "GHL_LOCATION_ID": "yqROQIaNeeK0xIpi4n67" }
 }

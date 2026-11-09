@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Black Friday page review | Detailers Movement</title>
+<link rel="icon" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F6FA;--card:#fff;--navy:#212A40;--muted:#5D6B85;--line:#DDE3EE;--blue:#0076FF;--deep:#0055FF;--done:#1F8A5B}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--navy);font:15px/1.5 Inter,system-ui,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+#board{height:100%}
+.top{display:flex;align-items:center;gap:20px;height:64px;padding:0 20px;background:var(--card);border-bottom:1px solid var(--line)}
+.top img{height:26px;width:auto}
+.top h1{margin:0;font:800 17px Manrope,Inter,sans-serif;letter-spacing:-.01em}
+.top .live{margin-left:auto;color:var(--blue);font-weight:600;text-decoration:none;font-size:14px}
+.app{display:grid;grid-template-columns:minmax(0,1fr) 420px;height:calc(100% - 64px)}
+.pv{display:flex;flex-direction:column;min-width:0;border-right:1px solid var(--line)}
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;padding:12px 20px;background:var(--card);border-bottom:1px solid var(--line)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{padding:8px 14px;border:0;background:none;cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed=true]{background:var(--navy);color:#fff}
+.bar .at{margin-left:auto;font-size:13.5px;color:var(--muted)}
+.bar .at b{color:var(--navy)}
+.stage{position:relative;flex:1;overflow:hidden;background:#E9EDF4}
+.stage iframe{position:absolute;top:0;left:50%;border:0;background:#fff;transform-origin:top center}
+.stage.m iframe{top:20px;border-radius:24px;box-shadow:0 0 0 10px #212A40}
+.side{display:flex;flex-direction:column;min-height:0;background:var(--card)}
+form.add{padding:20px;border-bottom:1px solid var(--line)}
+form.add h2,.list h2{margin:0 0 4px;font:800 18px Manrope,Inter,sans-serif}
+form.add p{margin:0 0 14px;color:var(--muted);font-size:13.5px}
+label.f{display:block;margin-bottom:10px;font-size:13px;font-weight:600}
+label.f select,label.f input,label.f textarea{display:block;width:100%;margin-top:5px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;font-weight:400;font-size:15px}
+label.f textarea{min-height:96px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;width:100%;height:46px;border:0;border-radius:10px;background:var(--blue);color:#fff;font-weight:700;cursor:pointer;transition:background .2s}
+.btn:hover{background:var(--deep)}
+.btn:disabled{opacity:.6;cursor:default}
+.list{flex:1;overflow:auto;padding:20px}
+.lh{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px}
+.lh .seg button{padding:6px 10px;font-size:13px}
+.it{padding:14px 0;border-top:1px solid var(--line)}
+.it .meta{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:12.5px;color:var(--muted)}
+.it .meta b{color:var(--navy)}
+.it .where{background:none;border:0;padding:0;color:var(--blue);font-weight:600;font-size:12.5px;cursor:pointer}
+.it .tx{margin:6px 0 0;white-space:pre-wrap}
+.it .rp{margin:8px 0 0;padding:8px 12px;border-left:3px solid var(--blue);background:var(--bg);font-size:14px;white-space:pre-wrap}
+.it .acts{display:flex;gap:14px;margin-top:8px}
+.it .acts button{background:none;border:0;padding:0;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer}
+.it .acts button:hover{color:var(--navy)}
+.it.done .tx{color:var(--muted);text-decoration:line-through;text-decoration-color:#AAB4C5}
+.it .st{font-weight:700}
+.it.done .st{color:var(--done)}
+.empty{color:var(--muted);font-size:14px}
+.lock{max-width:440px;margin:15vh auto;padding:28px;background:var(--card);border:1px solid var(--line);border-radius:16px;text-align:center}
+.lock h1{margin:0 0 8px;font:800 22px Manrope,Inter,sans-serif}
+.lock p{margin:0;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);padding:10px 16px;border-radius:10px;background:var(--navy);color:#fff;font-size:14px;opacity:0;transition:opacity .25s;pointer-events:none}
+.toast.on{opacity:1}
+/* phones: Ed reviews on the phone itself, so the preview shrinks to a strip and the form comes first */
+@media (max-width:900px){
+  html,body{height:auto}
+  .top{padding:0 16px;gap:12px}
+  .top h1{font-size:15px}
+  .app{display:block;height:auto}
+  .pv{border-right:0}
+  .bar{padding:10px 16px}
+  .bar .seg.dev{display:none}
+  .bar .at{margin-left:0;width:100%}
+  .stage{flex:none;height:62vh}
+  form.add,.list{padding:18px 16px}
+}
+</style>
+</head>
+<body>
+
+<div id="locked" class="lock" hidden>
+  <h1>Private review page</h1>
+  <p>This link is missing its access key. Ask Fender for the review link.</p>
+</div>
+
+<div id="board" hidden>
+  <header class="top">
+    <img src="../assets/logo-dmi-light-header.webp" alt="Detailers Movement" width="155" height="30" onerror="this.style.display='none'">
+    <h1>Black Friday page review</h1>
+    <a class="live" id="openLive" href="../" target="_blank" rel="noopener">Open live page ↗</a>
+  </header>
+
+  <div class="app">
+    <section class="pv" aria-label="Page preview">
+      <div class="bar">
+        <div class="seg" role="group" aria-label="Page">
+          <button type="button" data-page="landing" aria-pressed="true">Landing</button>
+          <button type="button" data-page="checkout" aria-pressed="false">Checkout</button>
+          <button type="button" data-page="thank-you" aria-pressed="false">Thank you</button>
+        </div>
+        <div class="seg dev" role="group" aria-label="Device">
+          <button type="button" data-dev="d" aria-pressed="true">Desktop</button>
+          <button type="button" data-dev="m" aria-pressed="false">Mobile</button>
+        </div>
+        <p class="at">You're looking at: <b id="atSec">Hero</b></p>
+      </div>
+      <div class="stage" id="stage"><iframe id="frame" title="Page preview" src="about:blank"></iframe></div>
+    </section>
+
+    <aside class="side">
+      <form class="add" id="addForm">
+        <h2>Add feedback</h2>
+        <p>Scroll the preview to the part you mean. The section fills in by itself, or pick it below.</p>
+        <div class="row2">
+          <label class="f">Page<select name="page" id="fPage"></select></label>
+          <label class="f">Section<select name="section" id="fSec"></select></label>
+        </div>
+        <label class="f">What should change?<textarea name="text" id="fText" required placeholder="e.g. Make the Premium price bigger, change the headline to..."></textarea></label>
+        <label class="f">Your name<input name="name" id="fName" value="Ed" autocomplete="name"></label>
+        <button class="btn" type="submit" id="addBtn">Send feedback</button>
+      </form>
+
+      <section class="list" aria-labelledby="listH">
+        <div class="lh">
+          <h2 id="listH">Feedback <span id="count"></span></h2>
+          <div class="seg" role="group" aria-label="Show">
+            <button type="button" data-show="open" aria-pressed="true">Open</button>
+            <button type="button" data-show="done" aria-pressed="false">Done</button>
+            <button type="button" data-show="all" aria-pressed="false">All</button>
+          </div>
+        </div>
+        <div id="items"><p class="empty">Loading…</p></div>
+      </section>
+    </aside>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  const KEY = new URLSearchParams(location.search).get('k') || '';
+  if (!KEY) { document.getElementById('locked').hidden = false; return; }
+  const $ = id => document.getElementById(id);
+  const api = (path, body) => fetch('/api/feedback' + path + '?k=' + encodeURIComponent(KEY), body ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) } : {}).then(r => r.json());
+
+  // what Ed can point at on each page: [label, selector in the page]
+  const PAGES = {
+    landing: { label: 'Landing', url: '../', sections: [['Header', 'header'], ['Hero & form', '#top'], ['Standard package', '#standard'], ['Premium package', '#premium'], ['Reviews', '#reviews'], ['Quote form & FAQ', '#contact'], ['Limited time strip', '.bf-strip'], ['Footer', 'footer']] },
+    checkout: { label: 'Checkout', url: '../checkout/?pkg=premium', sections: [['Top & steps', '.co-top'], ['Package cards', '.pick'], ['Your details & hosting', '#payForm'], ['Order summary', '.sum']] },
+    'thank-you': { label: 'Thank you', url: '../thank-you/?pkg=premium', sections: [['Thank you page', 'main']] },
+    other: { label: 'Other / whole page', sections: [['General', 'body']] },
+  };
+  let page = 'landing', dev = 'd', show = 'open', items = [];
+
+  // ---- preview ----
+  const frame = $('frame'), stage = $('stage');
+  const mobileUI = () => matchMedia('(max-width:900px)').matches;
+  function fit() {
+    const m = dev === 'm' || mobileUI(), W = m ? 390 : 1440, H = m ? 844 : 900;
+    stage.classList.toggle('m', m && !mobileUI());
+    const sw = stage.clientWidth - (m && !mobileUI() ? 40 : 0), sh = stage.clientHeight - (m && !mobileUI() ? 40 : 0);
+    const s = mobileUI() ? Math.min(1, sw / W) : (m ? Math.min(1, sh / H) : sw / W);
+    frame.style.width = W + 'px';
+    frame.style.height = (m && !mobileUI() ? H : Math.ceil(sh / s)) + 'px';
+    frame.style.transform = 'translateX(-50%) scale(' + s + ')';
+  }
+  function load() {
+    const p = PAGES[page];
+    frame.src = p.url;
+    $('openLive').href = p.url;
+    fit();
+  }
+  addEventListener('resize', fit);
+  if ('ResizeObserver' in window) new ResizeObserver(fit).observe(stage);
+
+  // which section is on screen inside the preview -> preselect it in the form
+  function current() {
+    try {
+      const d = frame.contentDocument, w = frame.contentWindow, mid = w.innerHeight * 0.35;
+      let best = null;
+      PAGES[page].sections.forEach(([label, sel]) => {
+        const el = d.querySelector(sel); if (!el) return;
+        const r = el.getBoundingClientRect();
+        if (r.top <= mid && r.bottom > mid) best = label;
+      });
+      return best;
+    } catch (e) { return null; }
+  }
+  let userPicked = false;
+  function track() {
+    const s = current();
+    if (s) { $('atSec').textContent = s; if (!userPicked && $('fPage').value === page) $('fSec').value = s; }
+  }
+  frame.addEventListener('load', () => {
+    try { frame.contentWindow.addEventListener('scroll', track, { passive: true }); } catch (e) {}
+    setTimeout(track, 400);
+  });
+  function jump(pg, label) {
+    const go = () => {
+      try {
+        const sel = (PAGES[pg].sections.find(s => s[0] === label) || [])[1];
+        const el = sel && frame.contentDocument.querySelector(sel);
+        if (el) frame.contentWindow.scrollTo({ top: el.getBoundingClientRect().top + frame.contentWindow.scrollY - 70, behavior: 'smooth' });
+      } catch (e) {}
+    };
+    if (pg !== page && PAGES[pg].url) { setPage(pg); frame.addEventListener('load', () => setTimeout(go, 600), { once: true }); }
+    else go();
+  }
+
+  // ---- form ----
+  const fPage = $('fPage'), fSec = $('fSec');
+  Object.entries(PAGES).forEach(([k, p]) => fPage.add(new Option(p.label, k)));
+  function fillSections() { fSec.innerHTML = ''; PAGES[fPage.value].sections.forEach(([l]) => fSec.add(new Option(l, l))); }
+  fPage.addEventListener('change', () => { fillSections(); userPicked = false; if (PAGES[fPage.value].url && fPage.value !== page) setPage(fPage.value); });
+  fSec.addEventListener('change', () => { userPicked = true; jump(fPage.value, fSec.value); });
+  try { $('fName').value = localStorage.getItem('bfReviewName') || 'Ed'; } catch (e) {}
+
+  $('addForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const text = $('fText').value.trim(); if (!text) return;
+    $('addBtn').disabled = true;
+    const name = $('fName').value.trim() || 'Ed';
+    try { localStorage.setItem('bfReviewName', name); } catch (err) {}
+    const r = await api('', { page: fPage.value, section: fSec.value, name, text }).catch(() => ({}));
+    $('addBtn').disabled = false;
+    if (!r.ok) return toast('Could not save. Please try again.');
+    $('fText').value = ''; userPicked = false;
+    items.push(r.item); show = 'open'; syncShow(); render();
+    toast('Thanks, feedback saved.');
+  });
+
+  // ---- list ----
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const when = iso => new Date(iso).toLocaleString('en-AU', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' });
+  function render() {
+    const open = items.filter(i => i.status !== 'done').length;
+    $('count').textContent = '(' + open + ' open)';
+    const list = items.filter(i => show === 'all' || (show === 'done' ? i.status === 'done' : i.status !== 'done')).slice().reverse();
+    $('items').innerHTML = list.length ? list.map(i => `
+      <article class="it${i.status === 'done' ? ' done' : ''}" data-id="${esc(i.id)}">
+        <div class="meta"><span class="st">${i.status === 'done' ? 'Done' : 'Open'}</span><b>${esc(i.name)}</b><span>${when(i.at)}</span>
+          <button class="where" type="button" data-pg="${esc(i.page)}" data-sec="${esc(i.section)}">${esc((PAGES[i.page] || PAGES.other).label)} · ${esc(i.section || 'General')}</button></div>
+        <p class="tx">${esc(i.text)}</p>
+        ${i.reply ? `<p class="rp"><b>Reply:</b> ${esc(i.reply)}</p>` : ''}
+        <div class="acts"><button type="button" data-act="status">${i.status === 'done' ? 'Reopen' : 'Mark done'}</button><button type="button" data-act="reply">${i.reply ? 'Edit reply' : 'Reply'}</button></div>
+      </article>`).join('') : `<p class="empty">${show === 'done' ? 'Nothing marked done yet.' : 'No open feedback.'}</p>`;
+  }
+  $('items').addEventListener('click', async e => {
+    const w = e.target.closest('.where');
+    if (w) { if (mobileUI()) stage.scrollIntoView({ behavior: 'smooth' }); return jump(w.dataset.pg, w.dataset.sec); }
+    const b = e.target.closest('[data-act]'); if (!b) return;
+    const id = b.closest('.it').dataset.id, item = items.find(i => i.id === id);
+    let body;
+    if (b.dataset.act === 'status') body = { id, status: item.status === 'done' ? 'open' : 'done' };
+    else { const r = prompt('Reply', item.reply || ''); if (r === null) return; body = { id, reply: r }; }
+    const r = await api('/update', body).catch(() => ({}));
+    if (!r.ok) return toast('Could not save. Please try again.');
+    Object.assign(item, r.item); render();
+  });
+
+  // ---- toggles ----
+  function setPage(pg) {
+    page = pg;
+    document.querySelectorAll('[data-page]').forEach(b => b.setAttribute('aria-pressed', b.dataset.page === pg));
+    if (fPage.value !== pg) { fPage.value = pg; fillSections(); }
+    userPicked = false; load();
+  }
+  document.querySelectorAll('[data-page]').forEach(b => b.addEventListener('click', () => setPage(b.dataset.page)));
+  document.querySelectorAll('[data-dev]').forEach(b => b.addEventListener('click', () => {
+    dev = b.dataset.dev; document.querySelectorAll('[data-dev]').forEach(x => x.setAttribute('aria-pressed', x === b)); fit();
+  }));
+  function syncShow() { document.querySelectorAll('[data-show]').forEach(x => x.setAttribute('aria-pressed', x.dataset.show === show)); }
+  document.querySelectorAll('[data-show]').forEach(b => b.addEventListener('click', () => { show = b.dataset.show; syncShow(); render(); }));
+
+  let tt;
+  function toast(t) { const el = $('toast'); el.textContent = t; el.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => el.classList.remove('on'), 2400); }
+
+  // ---- start ----
+  api('').then(r => {
+    if (!r.ok) { document.getElementById('locked').hidden = false; return; }
+    document.getElementById('board').hidden = false;
+    items = r.items; render();
+    fillSections(); load();
+  }).catch(() => { document.getElementById('locked').hidden = false; });
+})();
+</script>
+</body>
+</html>

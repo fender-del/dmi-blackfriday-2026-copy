@@ -35,6 +35,10 @@
 - Tài sản chép từ dự án `Downloads/DMI- Service Website-Design` bằng `4-tools/prep_assets.py`. Standard: First Choice, Daniels, Diwal, ATD, Slim's (crop 16:10 đầu trang). Premium: Design 1–5 (link steve-7e8 themes). Review: 3 câu thật (Ryan Lindsey, Michael Heintz, Joey Love). Nền hero = ảnh studio của Premium Design 4.
 - Preview: launch `dmi-blackfriday` cổng 8770. QA: `node 4-tools/shots.js` (ảnh vào `4-tools/qa/`), `node 4-tools/flow-test.js` (thử luồng form → checkout → cảm ơn).
 
+## Trang review cho Ed
+- `/review/?k=<REVIEW_KEY>` (khoá ở `.dev.vars` + secret Cloudflare `REVIEW_KEY`, không đưa vào git). Xem trước Landing/Checkout/Thank-you (máy tính/điện thoại), góp ý theo từng block (tự nhận block đang xem), danh sách Open/Done, nút Reply. Lưu ở KV `FEEDBACK` (id `604531afecd94bc28aefa8b52994a606`), API `/api/feedback` trong `src/worker.js`. Trang có `noindex` + `no-store`.
+- Đọc góp ý: mở trang, hoặc `curl "<site>/api/feedback?k=<key>"`.
+
 ## GHL
 - Fender gửi **Private Integration Token** (09/11), lưu ở `.dev.vars` (git-ignore, không bao giờ đưa vào `site/`). Location ID `yqROQIaNeeK0xIpi4n67` (đã điền, đã chạy thật).
 - Đường đi: form → `POST /api/lead` (Worker `src/worker.js`) → GHL `contacts/upsert` (tag `black-friday-2026`, `bf26-lead` / `bf26-checkout-started`, `bf26-premium|standard`, `bf26-src-<utm_source>`) + ghi chú (gói, giá, utm). Workflow email sau cọc / book call Jesse dựng trong GHL dựa theo tag.
@@ -51,6 +55,7 @@
 - QA: `node 4-tools/shots-v3.js <url>` (ảnh từng block), `node 4-tools/flow-test-v3.js <url>` (6 bước, chặn `/api/lead` và trang Stripe nên không tạo contact rác).
 
 ## Nhật ký
+- **09/11/2026 (tối muộn):** So lại mock Ed lần cuối: thêm nút header "Get the Black Friday deal", lời dẫn form hero theo mock, Premium "Best value", nút "Get the Standard website for $500". Không lấy 3 slogan (Get More Leads…) và review giả. Dựng trang `/review` cho Ed góp ý.
 - **09/11/2026 (khuya 2):** Mail Ed (qua Steve): 50% OFF model, giữ 2 hosting, tặng chai ceramic DMI, 20/30 trang, cọc qua GHL, sau cọc → lịch Jesse. Đã: sửa giá/quyền lợi toàn trang + checkout, chai Apeax tạm, hero điện thoại gọn 1 màn (bỏ kicker + proof, khối 50% OFF + giá gạch), tạo product + 2 Payment Link trong GHL, nối link lịch Jesse. Stripe live của DMI (đã nối GHL, từng thu $99 qua funnel marketingtoolkits 11/2024) hiện không thanh toán được → chờ Ed.
 - **09/11/2026 (khuya):** Location ID `yqROQIaNeeK0xIpi4n67` đã điền, token đọc/ghi contacts OK (không có scope locations). Git: repo riêng tư https://github.com/fender-del/dmi-blackfriday-2026 (`main`). Deploy live https://dmi-blackfriday.fender-aa2.workers.dev, secret `GHL_TOKEN` đã đặt. Lead thử: contact `test-bf26@detailersmovement.com` (TEST - please delete) cần xoá trong GHL. Deploy tự động từ git (Workers Builds) cần Fender bấm nối GitHub trong dashboard Cloudflare.
 - **09/11/2026 (đêm):** Fender có tài khoản GHL `https://app.detailersmovement.com/` (white-label). Đã hướng dẫn: lấy Location ID từ URL `/v2/location/<ID>/`, token phải tạo trong đúng sub-account (scope contacts); phương án cọc trên GHL (Payment Link / order form funnel + workflow "Payment Received") cần cổng thanh toán GHL hỗ trợ (Stripe…, Airwallex không có sẵn); subdomain: worker phải nằm cùng tài khoản Cloudflare với zone detailersmovement.com → bàn giao cho anh Bằng deploy vào tài khoản DMI rồi Add Custom Domain.
