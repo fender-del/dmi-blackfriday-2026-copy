@@ -84,8 +84,8 @@ html = must_replace(html, '<li>Website design &amp; build<b>$2,000</b></li>\n   
                     '<li>Premium design &amp; build, up to 30 pages<b>$2,000</b></li>\n'
                     '     <li>Everything in Standard<b>Included</b></li>\n'
                     '     <li>Local SEO, 3 months, valued at $897<b>Included</b></li>\n'
-                    '     <li class="bf-gift"><img src="assets/bf-bottle-temp.webp" alt="" width="209" height="562" loading="lazy">'
-                    '<span>5-year ceramic coating<small>50ml bottle</small></span><b>Free</b></li>')
+                    '     <li class="bf-gift"><img src="assets/bf-bottle-dmi.webp" alt="DMI Atomic G5 ceramic coating, 50ml bottle" width="213" height="360" loading="lazy">'
+                    '<span>DMI Atomic G5 ceramic coating<small>5-year graphene coating, 50ml bottle</small></span><b>Free</b></li>')
 html = must_replace(html, 'Normally<b data-v="2897">$2,897</b>', 'Normally<b data-v="2000">$2,000</b>')
 html = must_replace(html, '<p class="p3-now">With Premium<strong>$990</strong></p>', '<p class="p3-now">Black Friday, 50% off<strong>$990</strong></p>')
 html = must_replace(html, '<small>$2,897 value</small>', '<small>Normally $2,000</small>')

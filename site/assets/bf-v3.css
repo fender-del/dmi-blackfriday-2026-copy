@@ -63,9 +63,10 @@
 .dmx-show .tiers s{color:#8592AA;font-weight:500}
 #stdView .pr .bf-was{font-size:15px}
 
-/* Premium: the free bottle sits in the included list with its real photo (temporary Apeax until the DMI bottle) */
+/* Premium: the free DMI Atomic G5 bottle sits in the included list as its real photo (dark studio shot, kept uncut) */
 .p3-rc li.bf-gift{align-items:center;justify-content:flex-start}
-.p3-rc li.bf-gift img{flex:none;width:auto;height:58px;margin:-4px 0}
+.p3-rc li.bf-gift{gap:14px}
+.p3-rc li.bf-gift img{flex:none;width:auto;height:84px;border-radius:8px;border:1px solid rgba(169,214,255,.14)}
 .p3-rc li.bf-gift span{flex:1;display:flex;flex-direction:column}
 .p3-rc li.bf-gift small{font-size:12.5px;color:#8592AA}
 .p3-rc li.bf-gift b{color:#4FB0FF}
@@ -87,7 +88,7 @@
   .dmx .bf-form h2{font-size:21px}
   .bf-form>p{margin:6px 0 14px;font-size:14px}
   .bf-f input{height:48px}
-  .p3-rc li.bf-gift img{height:48px}
+  .p3-rc li.bf-gift img{height:72px}
 }
 
 /* Standard: one clear reserve button under the inclusions (mock) */

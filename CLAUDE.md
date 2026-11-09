@@ -26,7 +26,6 @@
 - [ ] Steve → anh Bằng: gắn subdomain detailersmovement.com cho worker.
 - [ ] **Ed: Stripe live của DMI không nhận thanh toán** (link GHL Live báo "No valid payment method available"; link Test mode thì hiện ô thẻ). Ed kiểm Stripe dashboard / nối lại Stripe trong GHL. Điều khoản hoàn/huỷ cọc.
 - [ ] Fender: dựng workflow GHL "BF26 Deposit paid" (trigger Payment Received, sản phẩm Black Friday 2026 Website Deposit → tag `bf26-deposit-paid` → email link lịch Jesse), bản Draft cần duyệt rồi Publish. UI workflow nằm trong iframe, Claude không click được.
-- [ ] Fender: gửi ảnh chai ceramic DMI 50ml → thay `site/assets/bf-bottle-temp.webp` (đang là Apeax Paint 5 Years 20ml, tạm).
 
 ## Cấu trúc
 - `site/` = thứ lên Cloudflare (`wrangler.jsonc`, worker `dmi-blackfriday`, live tại https://dmi-blackfriday.fender-aa2.workers.dev; push `main` = tự deploy qua Workers Builds). `index.html` (landing), `checkout/`, `thank-you/`, `assets/bf.css` + `bf.js`.
@@ -55,6 +54,7 @@
 - QA: `node 4-tools/shots-v3.js <url>` (ảnh từng block), `node 4-tools/flow-test-v3.js <url>` (6 bước, chặn `/api/lead` và trang Stripe nên không tạo contact rác).
 
 ## Nhật ký
+- **09/11/2026 (đêm muộn):** Fender gửi ảnh chai thật DMI Atomic G5 (graphene ceramic, 50mL, 5 năm; gốc ở `0-brief/dmi-atomic-g5-bottle.png`). Nền tối trùng tông chai nên không tách nền: cắt ô dọc 530×896 (tỉ lệ 0,592 giữ nguyên) → `site/assets/bf-bottle-dmi.webp`, hiện trong thẻ Premium; quà đổi tên "DMI Atomic G5 ceramic coating" ở landing, checkout, FAQ. Đã xoá ảnh Apeax tạm.
 - **09/11/2026 (tối muộn):** So lại mock Ed lần cuối: thêm nút header "Get the Black Friday deal", lời dẫn form hero theo mock, Premium "Best value", nút "Get the Standard website for $500". Không lấy 3 slogan (Get More Leads…) và review giả. Dựng trang `/review` cho Ed góp ý.
 - **09/11/2026 (khuya 2):** Mail Ed (qua Steve): 50% OFF model, giữ 2 hosting, tặng chai ceramic DMI, 20/30 trang, cọc qua GHL, sau cọc → lịch Jesse. Đã: sửa giá/quyền lợi toàn trang + checkout, chai Apeax tạm, hero điện thoại gọn 1 màn (bỏ kicker + proof, khối 50% OFF + giá gạch), tạo product + 2 Payment Link trong GHL, nối link lịch Jesse. Stripe live của DMI (đã nối GHL, từng thu $99 qua funnel marketingtoolkits 11/2024) hiện không thanh toán được → chờ Ed.
 - **09/11/2026 (khuya):** Location ID `yqROQIaNeeK0xIpi4n67` đã điền, token đọc/ghi contacts OK (không có scope locations). Git: repo riêng tư https://github.com/fender-del/dmi-blackfriday-2026 (`main`). Deploy live https://dmi-blackfriday.fender-aa2.workers.dev, secret `GHL_TOKEN` đã đặt. Lead thử: contact `test-bf26@detailersmovement.com` (TEST - please delete) cần xoá trong GHL. Deploy tự động từ git (Workers Builds) cần Fender bấm nối GitHub trong dashboard Cloudflare.
