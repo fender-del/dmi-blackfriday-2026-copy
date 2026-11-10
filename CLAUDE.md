@@ -23,7 +23,7 @@
 - **Đầu vào chưa có gì:** webhook/form GHL (anh Đạt), link lịch Jesse, link Airwallex $99 (Ed) → dựng bằng placeholder.
 
 ## Việc chờ người khác
-- [ ] Steve → anh Bằng: gắn subdomain detailersmovement.com cho worker.
+- [ ] Anh Bằng (không share quyền Cloudflare/DNS) tự deploy vào tài khoản DMI theo `README-DEPLOY.md`; gói ở `handover/dmi-blackfriday-2026-source.zip` (git archive: site, src, wrangler.jsonc, README), bí mật ở `handover/BI-MAT-gui-rieng.txt` (git-ignore). Anh ấy phải tạo KV mới và sửa id. Có subdomain rồi: đổi redirect 2 Payment Link GHL. Cập nhật về sau: khuyên anh Bằng nối Workers Builds vào repo GitHub (mời GitHub của anh ấy).
 - [ ] **Lỗi cọc Live (chẩn đoán xong 09/11):** tài khoản Stripe DMI `acct_1JSYy9JHa6Xz3bE9` (GBP, nối GHL từ 10/2024) **không có capability `card_payments` ở live**: Stripe trả "You do not have the capabilities required for payment method `card`" với PMC của GHL (`pmc_1QwbmaFpU9DlKp7Rz0UJuJeH`). Đã thử gạt lưu lại Payment Methods (Live → Payment Links): GHL lưu thẳng vào PMC cũ, lỗi không đổi → đã bật lại như cũ. Thẻ Ed "vẫn connect" là thẻ trả phí agency GHL (Stripe của GHL), khác tài khoản nhận tiền. Cần Ed vào Stripe dashboard tài khoản này xem "Payments/Card payments" bị tắt/yêu cầu xác minh, hoặc nối Stripe khác vào GHL. Điều khoản hoàn/huỷ cọc (Ed).
 - [ ] Fender: dựng workflow GHL "BF26 Deposit paid" (trigger Payment Received, sản phẩm Black Friday 2026 Website Deposit → tag `bf26-deposit-paid` → email link lịch Jesse), bản Draft cần duyệt rồi Publish. UI workflow nằm trong iframe, Claude không click được.
 
@@ -57,6 +57,7 @@
 - QA: `node 4-tools/shots-v3.js <url>` (ảnh từng block), `node 4-tools/flow-test-v3.js <url>` (6 bước, chặn `/api/lead` và trang Stripe nên không tạo contact rác).
 
 ## Nhật ký
+- **10/11/2026:** Anh Bằng không share quyền hosting/DNS → làm gói tự deploy + `README-DEPLOY.md` + tin nhắn cho Steve chuyển. Quét lộ key: chỉ `.dev.vars` (không vào gói). Gói đã thử `wrangler deploy --dry-run` OK.
 - **10/11/2026:** Ed: "change all $990 to $1000 on all pages, then make it live", sau đó Steve test thanh toán bằng thẻ Ed. Đã đổi Premium $1,000 (hero, block Premium, FAQ, checkout, `bf.js`; còn lại sau cọc $901, tiết kiệm $1,000).
 - **09/11/2026 (tối, mail Ed 15:36–15:38):** "get everything connected up so we can test it tomorrow" + "add a COUNTER at top - ONLY 10 Available" → làm bộ đếm thật từ GHL. Chẩn đoán lỗi cọc Live (xem Việc chờ).
 - **09/11/2026 (đêm muộn):** Fender gửi ảnh chai thật DMI Atomic G5 (graphene ceramic, 50mL, 5 năm; gốc ở `0-brief/dmi-atomic-g5-bottle.png`). Nền tối trùng tông chai nên không tách nền: cắt ô dọc 530×896 (tỉ lệ 0,592 giữ nguyên) → `site/assets/bf-bottle-dmi.webp`, hiện trong thẻ Premium; quà đổi tên "DMI Atomic G5 ceramic coating" ở landing, checkout, FAQ. Đã xoá ảnh Apeax tạm.
