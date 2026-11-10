@@ -16,7 +16,7 @@ window.BF = {
   },
   PACKAGES: {
     standard: { name: 'Standard Website', price: 500, normal: 1000 },
-    premium: { name: 'Premium Website', price: 990, normal: 2000 },
+    premium: { name: 'Premium Website', price: 1000, normal: 2000 },
   },
   DEPOSIT: 99,
   HOSTING: { basic: { label: 'Hosting', price: 25 }, secure: { label: 'Hosting, security & backups', price: 50 } },

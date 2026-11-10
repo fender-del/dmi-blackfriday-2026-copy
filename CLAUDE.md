@@ -52,11 +52,12 @@
 - Giữ nguyên CSS/JS gốc của V3: header, hero tường web, Standard, Premium (configurator), Reviews, footer. Bỏ: Before/After, Custom, Simulator, CRM. Cuối trang thay CTA/FAQ cũ bằng `parts/end.html` (form quote + FAQ không Custom, thêm câu cọc $99) + dải "Limited time only".
 - Hero: `parts/hero-copy.html` (tiêu đề BF + 50% OFF + form 3 trường), `.bf-shade` làm tối nền sau chữ. Đã vá script tường web để bấm vào form không mở web khách.
 - Nút "I want one like this" (Standard) và "Choose this design" (Premium) → `checkout/?pkg=...&design=...` (thay vì Messenger), checkout hiện dòng Design, gửi kèm sang GHL.
-- **Giá theo Ed (09/11):** Standard ~~$1,000~~ $500 (≤20 trang + 5 quyền lợi mock), Premium ~~$2,000~~ $990 (≤30 trang, Everything in Standard, Local SEO 3 tháng valued $897, tặng ceramic 5 năm 50ml), hosting giữ $25 và $50. Builder (`build_from_v3.py` bước 5b) vá các dòng này trên HTML V3. Checkout có chọn hosting, gửi kèm sang GHL (ghi chú contact).
+- **Giá theo Ed (09/11):** Standard ~~$1,000~~ $500 (≤20 trang + 5 quyền lợi mock), Premium ~~$2,000~~ **$1,000** (Ed 10/11 đổi từ $990; ≤30 trang, Everything in Standard, Local SEO 3 tháng valued $897, tặng ceramic 5 năm 50ml), hosting giữ $25 và $50. Builder (`build_from_v3.py` bước 5b) vá các dòng này trên HTML V3. Checkout có chọn hosting, gửi kèm sang GHL (ghi chú contact).
 - Bản landing cũ dựng theo mock: `4-tools/old/index-mock-v1.html`.
 - QA: `node 4-tools/shots-v3.js <url>` (ảnh từng block), `node 4-tools/flow-test-v3.js <url>` (6 bước, chặn `/api/lead` và trang Stripe nên không tạo contact rác).
 
 ## Nhật ký
+- **10/11/2026:** Ed: "change all $990 to $1000 on all pages, then make it live", sau đó Steve test thanh toán bằng thẻ Ed. Đã đổi Premium $1,000 (hero, block Premium, FAQ, checkout, `bf.js`; còn lại sau cọc $901, tiết kiệm $1,000).
 - **09/11/2026 (tối, mail Ed 15:36–15:38):** "get everything connected up so we can test it tomorrow" + "add a COUNTER at top - ONLY 10 Available" → làm bộ đếm thật từ GHL. Chẩn đoán lỗi cọc Live (xem Việc chờ).
 - **09/11/2026 (đêm muộn):** Fender gửi ảnh chai thật DMI Atomic G5 (graphene ceramic, 50mL, 5 năm; gốc ở `0-brief/dmi-atomic-g5-bottle.png`). Nền tối trùng tông chai nên không tách nền: cắt ô dọc 530×896 (tỉ lệ 0,592 giữ nguyên) → `site/assets/bf-bottle-dmi.webp`, hiện trong thẻ Premium; quà đổi tên "DMI Atomic G5 ceramic coating" ở landing, checkout, FAQ. Đã xoá ảnh Apeax tạm.
 - **09/11/2026 (tối muộn):** So lại mock Ed lần cuối: thêm nút header "Get the Black Friday deal", lời dẫn form hero theo mock, Premium "Best value", nút "Get the Standard website for $500". Không lấy 3 slogan (Get More Leads…) và review giả. Dựng trang `/review` cho Ed góp ý.

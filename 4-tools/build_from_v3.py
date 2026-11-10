@@ -60,12 +60,12 @@ end = re.search(r"<!-- SECTION:faq-cta -->.*?<!-- /SECTION:faq-cta -->", html, r
 html = html[: end.start()] + (PARTS / "end.html").read_text(encoding="utf-8") + html[end.end():]
 
 # 5b. Black Friday offer (Ed, 09/11): 50% off model, Standard normally $1,000 -> $500 (up to 20 pages),
-#     Premium normally $2,000 -> $990 (up to 30 pages, 3 months local SEO valued $897, free 5-year ceramic 50ml),
+#     Premium normally $2,000 -> $1,000 (Ed 10/11: "change all $990 to $1000") (up to 30 pages, 3 months local SEO valued $897, free 5-year ceramic 50ml),
 #     hosting keeps both $25 and $50. Bottle photo is a temporary Apeax one until the DMI bottle arrives.
 html = must_replace(html, 'Standard. <span class="tpx">$500</span><small>+ hosting from $25/month</small>',
                     'Standard. <s class="bf-was">$1,000</s> <span class="tpx">$500</span><small><em class="bf-pct">50% OFF</em> + hosting from $25/month</small>')
 html = must_replace(html, 'Premium. <span class="tpx">$990</span><small>+ hosting from $25/month</small>',
-                    'Premium. <s class="bf-was">$2,000</s> <span class="tpx">$990</span><small><em class="bf-pct">50% OFF</em> + hosting from $25/month</small>')
+                    'Premium. <s class="bf-was">$2,000</s> <span class="tpx">$1,000</span><small><em class="bf-pct">50% OFF</em> + hosting from $25/month</small>')
 m = re.search(r'<li>(<svg[^>]*><path[^>]*/></svg>)Standard design &amp; build</li>', html)
 assert m
 chk = m.group(1)
@@ -87,7 +87,8 @@ html = must_replace(html, '<li>Website design &amp; build<b>$2,000</b></li>\n   
                     '     <li class="bf-gift"><img src="assets/bf-bottle-dmi.webp" alt="DMI Atomic G5 ceramic coating, 50ml bottle" width="213" height="360" loading="lazy">'
                     '<span>DMI Atomic G5 ceramic coating<small>5-year graphene coating, 50ml bottle</small></span><b>Free</b></li>')
 html = must_replace(html, 'Normally<b data-v="2897">$2,897</b>', 'Normally<b data-v="2000">$2,000</b>')
-html = must_replace(html, '<p class="p3-now">With Premium<strong>$990</strong></p>', '<p class="p3-now">Black Friday, 50% off<strong>$990</strong></p>')
+html = must_replace(html, '<p class="p3-now">With Premium<strong>$990</strong></p>', '<p class="p3-now">Black Friday, 50% off<strong>$1,000</strong></p>')
+html = must_replace(html, '<p class="p3-pay"><span>You pay</span><strong>$990</strong>', '<p class="p3-pay"><span>You pay</span><strong>$1,000</strong>')
 html = must_replace(html, '<small>$2,897 value</small>', '<small>Normally $2,000</small>')
 
 # 6. BF scripts: lead form + route "I want one like this" / "Choose this design" to the $99 checkout
